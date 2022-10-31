@@ -21,7 +21,6 @@ contract CoinFlipAttacker {
         uint256 blockValue = uint256(blockhash(block.number.sub(1)));
 
         if (lastHash == blockValue) {
-            console.log("Noo");
             revert();
         }
 

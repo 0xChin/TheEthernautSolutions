@@ -6,7 +6,6 @@ import "../10-Reentrancy.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract ReentrancyAttacker {
-    event log(uint256);
     Reentrance victim;
     address owner;
 

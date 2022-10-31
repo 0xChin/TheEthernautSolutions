@@ -6,7 +6,6 @@ import "../13-GatekeeperOne.sol";
 contract GatekeeperOneAttacker {
     GatekeeperOne public victim;
     bool public called;
-    event log(uint256);
 
     constructor(address _victimAddress) {
         victim = GatekeeperOne(_victimAddress);

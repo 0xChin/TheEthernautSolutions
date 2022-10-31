@@ -6,7 +6,6 @@ import "../src/13-GatekeeperOne.sol";
 import "../src/attackers/13-GatekeeperOneAttacker.sol";
 
 contract GatekeeperOneTest is Test {
-    event log(bytes32);
     GatekeeperOne public target;
     GatekeeperOneAttacker public attacker;
     address player = vm.addr(1);

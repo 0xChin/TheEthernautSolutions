@@ -5,7 +5,6 @@ import "forge-std/Test.sol";
 import "../src/12-Privacy.sol";
 
 contract PrivacyTest is Test {
-    event log(bytes32);
     Privacy public target;
     address player = vm.addr(1);
 

@@ -4,7 +4,6 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract Reentrance {
-    event log(uint256);
     using SafeMath for uint256;
     mapping(address => uint256) public balances;
 
