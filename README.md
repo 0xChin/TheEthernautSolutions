@@ -1,4 +1,4 @@
-# The Etherenaut Solutions
+# The Ethernaut Solutions
 
 [Link to the challenge](https://ethernaut.openzeppelin.com/)
 
