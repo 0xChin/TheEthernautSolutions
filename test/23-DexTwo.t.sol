@@ -3,12 +3,14 @@ pragma solidity ^0.8.17;
 
 import "forge-std/Test.sol";
 import "../src/23-DexTwo.sol";
+import "../src/attackers/23-DexTwoAttacker.sol";
 
 contract DexTwoTest is Test {
     address player;
     SwappableTokenTwo tokenInstance;
     SwappableTokenTwo tokenInstanceTwo;
     DexTwo target;
+    DexTwoAttacker attacker;
 
     function setUp() public {
         player = vm.addr(1);
@@ -42,11 +44,13 @@ contract DexTwoTest is Test {
     function testDexTwo() public {
         vm.startPrank(address(player));
 
-        address tokenInstanceAddress = address(tokenInstance);
-        address tokenInstanceAddressTwo = address(tokenInstanceTwo);
+        attacker = new DexTwoAttacker(
+            address(target),
+            address(tokenInstance),
+            address(tokenInstanceTwo)
+        );
 
-        tokenInstance.approve(player, address(target), 9);
-        target.swap(tokenInstanceAddress, tokenInstanceAddressTwo, 9);
+        attacker.attack();
 
         assertTrue(
             IERC20(address(tokenInstance)).balanceOf(address(target)) == 0
